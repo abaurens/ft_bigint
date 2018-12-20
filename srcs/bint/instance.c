@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bint_instance.c                                    :+:      :+:    :+:   */
+/*   instance.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 04:04:26 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 07:16:00 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/20 20:40:51 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,15 @@ t_bint		*set_bint(t_bint *num, const char *value)
 
 void		unset_bint(t_bint *const num)
 {
+	if (!num)
+		return ;
 	free(num->num);
 	num->len = 0;
 }
 
 void		del_bint(t_bint const *const num)
 {
-	free(num->num);
+	if (num)
+		free(num->num);
 	free((void *)num);
 }

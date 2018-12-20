@@ -6,7 +6,7 @@
 #    By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/20 04:12:39 by abaurens          #+#    #+#              #
-#    Updated: 2018/12/20 07:36:26 by abaurens         ###   ########.fr        #
+#    Updated: 2018/12/20 20:20:53 by abaurens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,15 +19,17 @@ CC		=	gcc
 
 CFLAGS	+=	-g -I./includes -I./libft/includes -W -Wall -Wextra -ansi# -pedantic
 
-SRC		:=	bint_instance.c			\
-			bint_string.c			\
-			bint_utils.c			\
-			bint_add.c				\
+SRC		:=	bint/instance.c			\
+			bint/string.c			\
+			bint/utils.c			\
+			bint/add.c				\
+			bint/mul.c				\
 			\
-			bfloat_instance.c		\
-			bfloat_string.c			\
-			bfloat_utils.c			\
-			new_bfloat.c
+			bfloat/instance.c		\
+			bfloat/string.c			\
+			bfloat/utils.c			\
+			bfloat/add.c			\
+			bfloat/new.c
 
 OBJ		:=	$(addprefix $(OBJD)/,$(SRC:.c=.o))
 SRC		:=	$(addprefix $(SRCD)/,$(SRC))

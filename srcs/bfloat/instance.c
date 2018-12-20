@@ -1,38 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   instance.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/20 03:18:59 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 21:08:21 by abaurens         ###   ########.fr       */
+/*   Created: 2018/12/20 06:20:27 by abaurens          #+#    #+#             */
+/*   Updated: 2018/12/20 18:24:58 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include "ft_bigint.h"
 #include "ft_bigfloat.h"
 
-int				main(void)
+t_bflt		*new_bflt(const char *value)
 {
-	t_bint	*n;
-	t_bint	*n2;
-	t_bint	*r;
+	t_bflt	*res;
 
-	n = new_bint("42");
-	n2 = new_bint("42");
-	write(1, "  ", 2);
-	print_bint(n);
-	write(1, "* ", 2);
-	print_bint(n2);
-	r = mul_bint(n, n2);
-	del_bint(n);
-	del_bint(n2);
-	write(1, "  ", 2);
-	print_bint(r);
-	del_bint(r);
-	return (0);
+	if (!(res = (t_bflt *)malloc(sizeof(t_bflt))))
+		return (NULL);
+	if (!set_bflt(res, value))
+		return (NULL);
+	return (res);
+}
+
+void		unset_bflt(t_bflt *const num)
+{
+	if (!num)
+		return ;
+	free(num->ent);
+	free(num->dec);
+	num->entl = 0;
+	num->decl = 0;
+}
+
+void		del_bflt(t_bflt const *const num)
+{
+	if (num)
+	{
+		free(num->ent);
+		free(num->dec);
+	}
+	free((void *)num);
 }

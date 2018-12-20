@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_bfloat.c                                       :+:      :+:    :+:   */
+/*   new.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 06:29:23 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 07:46:04 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/20 18:07:44 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 
-static t_bfloat	*insert_decimal(t_bfloat *num, const char *value)
+static t_bflt	*insert_decimal(t_bflt *num, const char *value)
 {
 	size_t		i;
 
@@ -28,7 +28,7 @@ static t_bfloat	*insert_decimal(t_bfloat *num, const char *value)
 	if (!num->decl)
 		num->decl = 1;
 	if (!(num->dec = (t_digit *)malloc(sizeof(t_digit) * num->decl)))
-		return (abort_bfloat(num, 1));
+		return (abort_bflt(num, 1));
 	num->dec[0] = 0;
 	while (value && *value >= '0' && *value <= '9' && i < num->decl)
 		num->dec[i++] = *value++ - '0';
@@ -36,9 +36,9 @@ static t_bfloat	*insert_decimal(t_bfloat *num, const char *value)
 	return (num);
 }
 
-t_bfloat	*set_bfloat(t_bfloat *num, const char *value)
+t_bflt			*set_bflt(t_bflt *num, const char *value)
 {
-	size_t	i;
+	size_t		i;
 
 	i = 0;
 	num->entl = 0;
@@ -53,7 +53,7 @@ t_bfloat	*set_bfloat(t_bfloat *num, const char *value)
 	if (!num->entl)
 		num->entl = 1;
 	if (!(num->ent = (t_digit *)malloc(sizeof(t_digit) * num->entl)))
-		return (abort_bfloat(num, 0));
+		return (abort_bflt(num, 0));
 	num->ent[0] = 0;
 	while (value && *value >= '0' && *value <= '9')
 		num->ent[i++] = *value++ - '0';

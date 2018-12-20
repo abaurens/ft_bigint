@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 06:22:45 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 07:36:09 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/20 19:55:09 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,30 @@
 
 # include "bignum_types.h"
 
-typedef struct			s_bfloat
+typedef struct		s_bflt
 {
-	unsigned char		neg;
-	t_digit				*ent;
-	t_digit				*dec;
-	size_t				entl;
-	size_t				decl;
-	size_t				len;
-}						t_bfloat;
+	unsigned char	neg;
+	t_digit			*ent;
+	t_digit			*dec;
+	size_t			entl;
+	size_t			decl;
+	size_t			len;
+}					t_bflt;
 
-t_bfloat		*new_bfloat(const char *value);
-t_bfloat		*set_bfloat(t_bfloat *num, const char *value);
-t_bfloat		*copy_bfloat(t_bfloat const *const num);
-void			unset_bfloat(t_bfloat *const num);
-void			del_bfloat(t_bfloat const *const num);
+typedef t_bflt		t_bfloat;
 
-char			*bfloat_tostr(t_bfloat const *const num);
-void			*abort_bfloat(t_bfloat const *const to_abort, char step);
+t_bflt				*new_bflt(const char *value);
+t_bflt				*set_bflt(t_bflt *num, const char *value);
+t_bflt				*copy_bflt(t_bflt const *const num);
+void				unset_bflt(t_bflt *const num);
+void				del_bflt(t_bflt const *const num);
+
+char				*bfloat_tostr(t_bflt const *const num);
+void				print_bflt(t_bflt const *const num);
+
+void				*abort_bflt(t_bflt const *const to_abort, char step);
+
+t_bflt				*add_bflt(t_bflt const *const n1, t_bflt const *const n2);
+t_bflt				*mul_bflt(t_bflt const *const n1, t_bflt const *const n2);
 
 #endif

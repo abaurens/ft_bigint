@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bfloat_instance.c                                  :+:      :+:    :+:   */
+/*   mul.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/20 06:20:27 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 07:46:12 by abaurens         ###   ########.fr       */
+/*   Created: 2018/12/20 19:54:31 by abaurens          #+#    #+#             */
+/*   Updated: 2018/12/20 21:12:46 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "ft_bigfloat.h"
 
-t_bfloat		*new_bfloat(const char *value)
+static void			swap(t_bflt const **const n1, t_bflt const **const n2)
 {
-	t_bfloat	*res;
+	const t_bflt	*lng;
 
-	if (!(res = (t_bfloat *)malloc(sizeof(t_bfloat))))
-		return (NULL);
-	if (!set_bfloat(res, value))
-		return (NULL);
-	return (res);
+	lng = *n2;
+	if ((*n1)->len < (*n2)->len)
+	{
+		*n2 = *n1;
+		*n1 = lng;
+	}
 }
 
-void			unset_bfloat(t_bfloat *const num)
+t_bflt				*mul_bint(t_bflt const *n1, t_bflt const *n2)
 {
-	free(num->ent);
-	free(num->dec);
-	num->entl = 0;
-	num->decl = 0;
-}
-
-void			del_bfloat(t_bfloat const *const num)
-{
-	free(num->ent);
-	free(num->dec);
-	free((void *)num);
+	return (NULL);
 }

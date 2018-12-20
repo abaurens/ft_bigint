@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bfloat_string.c                                    :+:      :+:    :+:   */
+/*   string.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 07:28:35 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 07:39:54 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/20 18:26:29 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include "ft_bigfloat.h"
 
-char		*bfloat_tostr(t_bfloat const *const num)
+char		*bfloat_tostr(t_bflt const *const num)
 {
 	size_t	i;
 	char	*res;
@@ -36,12 +36,14 @@ char		*bfloat_tostr(t_bfloat const *const num)
 	return (res);
 }
 
-void		print_bfloat(t_bfloat const *const num)
+void		print_bflt(t_bflt const *const num)
 {
 	size_t	i;
 	t_digit	c;
 
 	i = 0;
+	if (!num)
+		return ;
 	while (i < num->entl)
 	{
 		c = num->ent[i++] + '0';

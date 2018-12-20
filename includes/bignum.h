@@ -6,6 +6,11 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 06:23:58 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 06:23:59 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/20 17:12:13 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef BIGNUM_H
+# define BIGNUM_H
+
+#endif
