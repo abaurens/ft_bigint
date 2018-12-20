@@ -6,16 +6,14 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 03:19:28 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 05:57:01 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/20 06:52:37 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_BIGING_H
 # define FT_BIGING_H
 
-#include <string.h>
-
-typedef unsigned char	t_digit;
+# include "bignum_types.h"
 
 typedef struct			s_bint
 {
@@ -23,16 +21,6 @@ typedef struct			s_bint
 	t_digit				*num;
 	size_t				len;
 }						t_bint;
-
-typedef struct			s_bfloat
-{
-	unsigned char		neg;
-	t_digit				*ent;
-	t_digit				*dec;
-	size_t				entl;
-	size_t				decl;
-	size_t				len;
-}						t_bfloat;
 
 t_bint			*new_bint(const char *value);
 t_bint			*set_bint(t_bint *num, const char *value);
@@ -45,7 +33,7 @@ void			print_bint(t_bint const *const num);
 
 const t_bint	*bint_longer(t_bint const *const n1, t_bint const *const n2);
 const t_bint	*bint_shorter(t_bint const *const n1, t_bint const *const n2);
-void			*abort_creation(t_bint const *const to_abort);
+void			*abort_bint(t_bint const *const to_abort);
 
 t_bint			*add_bint(t_bint const *const n1, t_bint const *const n2);
 

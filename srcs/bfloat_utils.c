@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   bfloat_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/20 03:18:59 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 07:42:02 by abaurens         ###   ########.fr       */
+/*   Created: 2018/12/20 06:43:32 by abaurens          #+#    #+#             */
+/*   Updated: 2018/12/20 06:53:37 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
-#include "ft_bigint.h"
 #include "ft_bigfloat.h"
 
-int				main(void)
+void			*abort_bfloat(t_bfloat const *const to_abort, char step)
 {
-	t_bfloat	*n;
-	char		*s;
-
-	n = new_bfloat(NULL);
-	return (0);
+	if (step > 0)
+		free(to_abort->ent);
+	free((void *)to_abort);
+	return (NULL);
 }

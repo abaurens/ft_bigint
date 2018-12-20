@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 04:55:04 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 05:59:25 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/20 06:40:21 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_bint		*add_bint(t_bint const *const n1, t_bint const *const n2)
 	l1 = n1->len - 1;
 	l2 = n2->len - 1;
 	if (!(res->num = (t_digit *)ft_memalloc(sizeof(t_digit) * (res->len + 2))))
-		return (abort_creation(res));
+		return (abort_bint(res));
 	while (i < res->len)
 	{
 		res->num[res->len - i] += n1->num[l1 - i] + n2->num[l2 - i];

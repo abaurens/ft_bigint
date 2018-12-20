@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   bignum_types.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/20 03:18:59 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 07:42:02 by abaurens         ###   ########.fr       */
+/*   Created: 2018/12/20 06:24:16 by abaurens          #+#    #+#             */
+/*   Updated: 2018/12/20 06:24:43 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "ft_bigint.h"
-#include "ft_bigfloat.h"
+#ifndef BIGNUM_TYPES_H
+# define BIGNUM_TYPES_H
 
-int				main(void)
-{
-	t_bfloat	*n;
-	char		*s;
+#include <string.h>
 
-	n = new_bfloat(NULL);
-	return (0);
-}
+typedef unsigned char	t_digit;
+
+#endif

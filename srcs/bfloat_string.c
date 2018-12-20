@@ -1,50 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bint_string.c                                      :+:      :+:    :+:   */
+/*   bfloat_string.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/20 04:05:11 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 07:30:11 by abaurens         ###   ########.fr       */
+/*   Created: 2018/12/20 07:28:35 by abaurens          #+#    #+#             */
+/*   Updated: 2018/12/20 07:39:54 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdlib.h>
-#include "ft_bigint.h"
+#include <unistd.h>
+#include "ft_bigfloat.h"
 
-char		*bint_tostr(t_bint const *const num)
+char		*bfloat_tostr(t_bfloat const *const num)
 {
 	size_t	i;
 	char	*res;
 
-	if (!num || !num->num || !num->len)
+	i = 0;
+	if (!(res = malloc(num->len + 1)))
 		return (NULL);
-	if (!(res = (char *)malloc(num->len + num->neg + 1)))
-		return (NULL);
-	if ((i = num->neg))
-		res[0] = '-';
-	res[num->len + i] = 0;
+	res[num->len] = 0;
 	while (i < num->len)
 	{
-		res[i] = num->num[i - num->neg] + '0';
+		if (i < num->entl)
+			res[i] = num->ent[i] + '0';
+		else if (i > num->entl)
+			res[i] = num->dec[i - num->entl - 1] + '0';
+		else
+			res[i] = '.';
 		i++;
 	}
 	return (res);
 }
 
-void		print_bint(t_bint const *const num)
+void		print_bfloat(t_bfloat const *const num)
 {
 	size_t	i;
 	t_digit	c;
 
 	i = 0;
-	if (num->neg)
-		write(1, "-", 1);
-	while (i < num->len)
+	while (i < num->entl)
 	{
-		c = num->num[i++] + '0';
+		c = num->ent[i++] + '0';
+		write(1, &c, 1);
+	}
+	write(1, ".", 1);
+	i = 0;
+	while (i < num->decl)
+	{
+		c = num->dec[i++] + '0';
 		write(1, &c, 1);
 	}
 	write(1, "\n", 1);

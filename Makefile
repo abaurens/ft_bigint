@@ -6,7 +6,7 @@
 #    By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/20 04:12:39 by abaurens          #+#    #+#              #
-#    Updated: 2018/12/20 05:54:37 by abaurens         ###   ########.fr        #
+#    Updated: 2018/12/20 07:36:26 by abaurens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,18 +21,23 @@ CFLAGS	+=	-g -I./includes -I./libft/includes -W -Wall -Wextra -ansi# -pedantic
 
 SRC		:=	bint_instance.c			\
 			bint_string.c			\
+			bint_utils.c			\
 			bint_add.c				\
-			utils.c
+			\
+			bfloat_instance.c		\
+			bfloat_string.c			\
+			bfloat_utils.c			\
+			new_bfloat.c
 
 OBJ		:=	$(addprefix $(OBJD)/,$(SRC:.c=.o))
 SRC		:=	$(addprefix $(SRCD)/,$(SRC))
 
 $(NAME):	$(OBJ)
 	$(LNK) $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@ranlib $(NAME)
 
 $(OBJD)/%.o:	$(SRCD)/%.c
-	mkdir -p $(dir $@)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 test:	$(NAME) main.o
