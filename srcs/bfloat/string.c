@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 07:28:35 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 18:26:29 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/21 01:14:28 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void		print_bflt(t_bflt const *const num)
 	i = 0;
 	if (!num)
 		return ;
+	if (num->neg)
+		write(1, "-", 1);
 	while (i < num->entl)
 	{
 		c = num->ent[i++] + '0';
