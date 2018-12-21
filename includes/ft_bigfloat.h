@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 06:22:45 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 19:55:09 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/21 15:49:27 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void				*abort_bflt(t_bflt const *const to_abort, char step);
 
 t_bflt				*add_bflt(t_bflt const *const n1, t_bflt const *const n2);
 t_bflt				*mul_bflt(t_bflt const *const n1, t_bflt const *const n2);
+t_bflt				*pow_bflt(t_bflt const *const n1, t_bflt const *const n2);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 07:28:35 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/21 01:14:28 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/21 15:00:18 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char		*bfloat_tostr(t_bflt const *const num)
 		if (i < num->entl)
 			res[i] = num->ent[i] + '0';
 		else if (i > num->entl)
-			res[i] = num->dec[i - num->entl - 1] + '0';
+			res[i] = num->dec ? num->dec[i - num->entl - 1] + '0' : '0';
 		else
 			res[i] = '.';
 		i++;
@@ -51,7 +51,8 @@ void		print_bflt(t_bflt const *const num)
 		c = num->ent[i++] + '0';
 		write(1, &c, 1);
 	}
-	write(1, ".", 1);
+	if (num->decl)
+		write(1, ".", 1);
 	i = 0;
 	while (i < num->decl)
 	{

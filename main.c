@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 03:18:59 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/21 01:12:34 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/21 14:56:11 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,14 @@
 int				main(void)
 {
 	t_bflt	*n;
-	t_bint	*i;
+	t_bflt	*i;
 	t_bflt	*r;
-	t_bint	*s;
 
-	n = new_bflt("234589876545678743456787.3458987645676454845764760049757");
-	i = new_bint("2345898765456787434567873458987645676454845764760049757");
-	r = mul_bflt(n, n);
-	s = mul_bint(i, i);
+	n = new_bflt("2.0");
+	i = new_bflt("2.2");
+	r = mul_bflt(n, i);
 	del_bflt(n);
-	del_bint(i);
 	print_bflt(r);
-	write(1, " ", 1);
-	print_bint(s);
 	del_bflt(r);
-	del_bint(s);
 	return (0);
 }
