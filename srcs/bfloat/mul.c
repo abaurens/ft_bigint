@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 19:54:31 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/21 01:14:57 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/21 01:41:19 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,24 @@ static void			mul_digit(const t_bflt *r, t_bflt const *n1,
 t_bflt				*mul_bflt(t_bflt const *n1, t_bflt const *n2)
 {
 	size_t			i;
-	size_t			ent;
-	size_t			dec;
+	size_t			l;
 	t_bflt			*res;
 
+	i = 0;
 	swap(&n1, &n2);
 	if (!n1 || !n2 || !(res = (t_bflt *)malloc(sizeof(t_bflt))))
 		return (NULL);
 	res->neg = 0;
-	ent = n2->entl;
-	dec = n2->decl;
-	res->entl = n1->entl + ent;
-	res->decl = n1->decl + dec;
+	res->entl = n1->entl + n2->entl;
+	res->decl = n1->decl + n2->decl;
 	res->len = res->decl + res->entl + 1;
 	if (!(res->ent = (t_digit *)ft_memalloc(sizeof(t_digit) * (res->entl + 1))))
 		return (abort_bflt(res, 0));
 	if (!(res->dec = (t_digit *)ft_memalloc(sizeof(t_digit) * res->decl)))
 		return (abort_bflt(res, 1));
-	i = 0;
-	while (i++ < (n2->len - 1))
-		mul_digit(res, n1, get_digit(n2, ((n2->len - 1) - i)), i - 1);
+	l = n2->len - 1;
+	while (i++ < l)
+		mul_digit(res, n1, get_digit(n2, l - i), i - 1);
 	if (!*res->ent)
 		ft_memmove(res->ent, res->ent + 1, res->entl--);
 	res->len = res->decl + res->entl + 1;
