@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 03:18:59 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/29 13:44:21 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/29 13:48:05 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 int				main(void)
 {
 	t_bint		n;
-
-	set_bint(&n, "379");
+	set_bint(&n, "98765432109876543210");
 	print_bint(&n);
 	unset_bint(&n);
 
