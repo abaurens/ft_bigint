@@ -6,7 +6,7 @@
 #    By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 16:08:06 by abaurens          #+#    #+#              #
-#    Updated: 2018/12/13 18:04:26 by abaurens         ###   ########.fr        #
+#    Updated: 2018/12/22 04:08:10 by abaurens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,7 +122,7 @@ OBJ		=		$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 INCLUDE	=		-I./includes
 
-CFLAGS	=		$(INCLUDE) -W -Wall -Wextra -Werror -ansi
+CFLAGS	=		$(INCLUDE) -g -W -Wall -Wextra -Werror -ansi
 
 $(NAME):	$(OBJ)
 	@printf "$(GRN)$(LNK_STR)$(NRM)\n"

@@ -6,7 +6,7 @@
 #    By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/20 04:12:39 by abaurens          #+#    #+#              #
-#    Updated: 2018/12/21 01:17:13 by abaurens         ###   ########.fr        #
+#    Updated: 2018/12/22 02:32:26 by abaurens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC		:=	bint/instance.c			\
 			bint/string.c			\
 			bint/utils.c			\
 			bint/add.c				\
+			bint/set.c				\
 			bint/mul.c				\
 			\
 			bfloat/instance.c		\

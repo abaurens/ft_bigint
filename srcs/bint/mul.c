@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 19:54:45 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/21 01:13:42 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/22 02:22:34 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static void			mul_digit(const t_bint *r, t_bint const *n1,
 	{
 		r->num[l - i - dc] += n1->num[n1->len - 1 - i] * d;
 		if (r->num[l - i - dc] > 9)
-			r->num[l - i - dc - 1] += r->num[l - i - dc] / 10;
-		r->num[l - i - dc] %= 10;
+			r->num[l - i - dc - 1] += r->num[l - i - dc] / DIGIT_MAX;
+		r->num[l - i - dc] %= DIGIT_MAX;
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 15:11:27 by abaurens          #+#    #+#             */
-/*   Updated: 2018/11/07 15:18:02 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/22 04:07:26 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char		*ft_strdup(const char *src)
 	char	*ret;
 
 	len = 0;
-	while (*src && src[len])
+	while (src && src[len])
 		len++;
 	if (!src || !(ret = malloc(sizeof(char) * (len + 1))))
 		return (0x0);

@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 03:18:59 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/21 01:12:34 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/22 07:10:20 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,23 @@
 #include <stdlib.h>
 #include "ft_bigint.h"
 #include "ft_bigfloat.h"
+#include "bignum.h"
 
 int				main(void)
 {
-	t_bflt	*n;
-	t_bint	*i;
-	t_bflt	*r;
-	t_bint	*s;
+	t_bint		n;
 
-	n = new_bflt("234589876545678743456787.3458987645676454845764760049757");
-	i = new_bint("2345898765456787434567873458987645676454845764760049757");
-	r = mul_bflt(n, n);
-	s = mul_bint(i, i);
-	del_bflt(n);
-	del_bint(i);
-	print_bflt(r);
-	write(1, " ", 1);
-	print_bint(s);
-	del_bflt(r);
-	del_bint(s);
+	set_bint(&n, "379");
+	print_bint(&n);
+	unset_bint(&n);
+
+	/*	423
+		211
+
+		423
+	   423
+	  846
+	  89253
+	*/
 	return (0);
 }

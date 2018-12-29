@@ -6,14 +6,14 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 03:19:28 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 20:21:41 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/22 04:53:42 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_BIGINT_H
 # define FT_BIGINT_H
 
-# include "bignum_types.h"
+# include "bignum.h"
 
 typedef struct		s_bint
 {

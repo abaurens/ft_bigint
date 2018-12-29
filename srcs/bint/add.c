@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 04:55:04 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 19:40:33 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/22 02:22:39 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ t_bint		*add_bint(t_bint const *const n1, t_bint const *const n2)
 	{
 		res->num[res->len - i] += (l1 < i ? 0 : n1->num[l1 - i])\
 				+ (l2 < i ? 0 : n2->num[l2 - i]);
-		if (res->num[res->len - i] > 9)
-			res->num[res->len - (i + 1)] = 1;
-		res->num[res->len - i] %= 10;
+		if (res->num[res->len - i] >= DIGIT_MAX)
+			res->num[res->len - (i + 1)] += res->num[res->len - i] / DIGIT_MAX;
+		res->num[res->len - i] %= DIGIT_MAX;
 		i++;
 	}
 	if (!*res->num || !(++res->len))
