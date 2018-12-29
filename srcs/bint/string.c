@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 04:05:11 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/22 06:53:52 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/29 18:12:51 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,6 @@
 #include <stdlib.h>
 #include "ft_bigint.h"
 #include "libft.h"
-
-char		*bint_tostr(t_bint const *const num)
-{
-	size_t	i;
-	char	*res;
-
-	if (!num || !num->num || !num->len)
-		return (NULL);
-	if (!(res = (char *)malloc(num->len + num->neg + 1)))
-		return (NULL);
-	if ((i = num->neg))
-		res[0] = '-';
-	res[num->len + i] = 0;
-	while (i < num->len)
-	{
-		res[i] = num->num[i - num->neg] + '0';
-		i++;
-	}
-	return (res);
-}
 
 /*
 **	those functions multiply and add n1 and n2 and return
@@ -51,7 +31,7 @@ void			swap_deci(const char **n1, const char **n2)
 	*n1 = lng;
 }
 
-char		*mul_deci(const char *n1, const char *n2)
+char			*mul_deci(const char *n1, const char *n2)
 {
 	size_t		i;
 	size_t		j;
@@ -61,7 +41,6 @@ char		*mul_deci(const char *n1, const char *n2)
 	swap_deci(&n1, &n2);
 	i = ft_strlen(n2);
 	len = ft_strlen(n1) + i;
-	printf("%s * %s\n", n1, n2);
 	if (!(res = (char *)ft_memalloc(len + 1)))
 		return (NULL);
 	while (i-- > 0 && (j = ft_strlen(n1)))
@@ -92,7 +71,6 @@ char			*add_deci(const char *n1, const char *n2)
 	l1 = ft_strlen(n1);
 	l2 = ft_strlen(n2);
 	len = ft_max(l1, l2) + 1;
-	printf("%s + %s\n", n1, n2);
 	if (!(res = (char *)ft_memalloc(len + 1)))
 		return (NULL);
 	while (i++ < len)
@@ -108,7 +86,7 @@ char			*add_deci(const char *n1, const char *n2)
 	return (res);
 }
 
-static char		*get_deci(t_bint const *const num)
+char			*bint_tostr(t_bint const *const num)
 {
 	size_t		len;
 	char		*tmp;
@@ -118,19 +96,22 @@ static char		*get_deci(t_bint const *const num)
 
 	len = 0;
 	deci = NULL;
-	base = ft_itoa(DIGIT_MAX);
+	base = ft_ulltoa(DIGIT_MAX);
 	while (len < num->len)
 	{
 		tmp = mul_deci(deci ? deci : "0", base);
-		digit = ft_itoa(num->num[len++]);
+		digit = ft_ulltoa(num->num[len++]);
 		if (!tmp || !digit)
 			return ((char *)ft_freturn(tmp, ft_freturn(base, 0x0)));
-		deci = add_deci(tmp, digit);
+		deci = (char *)ft_freturn(tmp, (long)add_deci(tmp, digit));
 		free(digit);
-		free(tmp);
 		if (!deci)
 			return ((char *)ft_freturn(base, 0x0));
 	}
+	while (*deci == '0' && *(deci + 1))
+		ft_memmove(deci, deci + 1, ft_strlen(deci));
+	if (num->neg)
+		deci = (char *)ft_freturn(deci, (long)ft_strmcat("-", deci, -1));
 	return (deci);
 }
 
@@ -140,12 +121,8 @@ void			print_bint(t_bint const *const num)
 	char		*t;
 
 	i = 0;
-	while (i < num->len)
-		printf("\t%d\n", num->num[i++]);
-	if (!num || !(t = get_deci(num)))
+	if (!num || !(t = bint_tostr(num)))
 		return ;
-	if (num->neg)
-		write(1, "-", 1);
 	write(1, t, ft_strlen(t));
 	free(t);
 	write(1, "\n", 1);

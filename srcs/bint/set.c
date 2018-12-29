@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 02:25:58 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/29 14:17:39 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/29 18:09:04 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 **	This function does not modify the arument string
 */
 
-static t_digit	modulus(const char *v)
+static t_digit		modulus(const char *v)
 {
-	t_digit		d;
-	char		first;
+	unsigned long	d;
+	char			first;
 
 	d = 0;
 	first = 1;
@@ -47,12 +47,12 @@ static t_digit	modulus(const char *v)
 **	This function also gives the modulus as return value.
 */
 
-static t_digit	div_prs(char *v)
+static t_digit		div_prs(char *v)
 {
-	size_t		i;
-	t_digit		d;
-	char		*nb;
-	char		first;
+	size_t			i;
+	unsigned long	d;
+	char			*nb;
+	char			first;
 
 	i = 0;
 	d = 0;
@@ -73,35 +73,33 @@ static t_digit	div_prs(char *v)
 	return (d);
 }
 
-static t_bint	*div_parser(t_bint *num, const char *value)
+static t_bint		*div_parser(t_bint *num, const char *value)
 {
-	size_t	l;
-	char	*wrk;
+	size_t			l;
+	char			*wrk;
 
 	l = 0;
 	if (!value || !(wrk = ft_strdup(value)))
 		return (NULL);
 	while (wrk && *wrk && *wrk != '0' && ++l)
 		div_prs(wrk);
-	if (!(num->num = (t_digit *)malloc(sizeof(t_digit) * l)))
+	l += (l ? 0 : 1);
+	if (!(num->num = (t_digit *)ft_memalloc(sizeof(t_digit) * l)))
 		return ((t_bint *)ft_freturn(wrk, 0x0));
 	num->len = l;
 	ft_strcpy(wrk, value);
-	while (wrk && *wrk && *wrk != '0')
+	while (l > 0)
 	{
 		num->num[--l] = modulus(wrk);
-		/*printf("%s %% %d = %d\n", wrk, DIGIT_MAX, num->num[l]);
-		printf("%s / %d = ", wrk, DIGIT_MAX);*/
 		div_prs(wrk);
-		/*printf("%s\n", wrk);*/
 	}
 	free(wrk);
 	return (num);
 }
 
-t_bint		*set_bint(t_bint *num, const char *value)
+t_bint				*set_bint(t_bint *num, const char *value)
 {
-	size_t	i;
+	size_t			i;
 
 	i = 0;
 	num->len = 0;
@@ -109,9 +107,12 @@ t_bint		*set_bint(t_bint *num, const char *value)
 	while (value && (*value == '+' || *value == '-') && ++value)
 		if (*(value - 1) == '-')
 			num->neg = !num->neg;
-	while (value && *value == '0')
+	while (value && *value == '0' && *(value + 1))
 		value++;
 	if (!div_parser(num, value))
 		return (NULL);
+	while (!*num->num && num->len > 1)
+		ft_memmove(num->num, num->num + 1, num->len--);
+	i = 0;
 	return (num);
 }

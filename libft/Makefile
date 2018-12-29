@@ -6,7 +6,7 @@
 #    By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 16:08:06 by abaurens          #+#    #+#              #
-#    Updated: 2018/12/22 04:08:10 by abaurens         ###   ########.fr        #
+#    Updated: 2018/12/29 16:32:45 by abaurens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRC		=		ft_absolute.c			\
 				ft_strclr.c				\
 				ft_itoa.c				\
 				ft_lltoa.c				\
+				ft_ulltoa.c				\
 				ft_lltoa_base.c			\
 				ft_numlen.c				\
 				ft_numlen_base.c		\

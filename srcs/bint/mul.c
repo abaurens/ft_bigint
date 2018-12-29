@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 19:54:45 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/22 02:22:34 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/29 16:48:11 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void			mul_digit(const t_bint *r, t_bint const *n1,
 	while (i < n1->len)
 	{
 		r->num[l - i - dc] += n1->num[n1->len - 1 - i] * d;
-		if (r->num[l - i - dc] > 9)
+		if (r->num[l - i - dc] >= DIGIT_MAX)
 			r->num[l - i - dc - 1] += r->num[l - i - dc] / DIGIT_MAX;
 		r->num[l - i - dc] %= DIGIT_MAX;
 		i++;
@@ -58,7 +58,7 @@ t_bint				*mul_bint(t_bint const *n1, t_bint const *n2)
 		return (abort_bint(res));
 	while (i++ < l2)
 		mul_digit(res, n1, n2->num[l2 - i], i - 1);
-	if (!*res->num)
-		ft_memmove(res->num, res->num + 1, --res->len);
+	while (!*res->num)
+		ft_memmove(res->num, res->num + 1, sizeof(t_digit) * --res->len);
 	return (res);
 }

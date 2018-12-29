@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 04:55:04 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/22 02:22:39 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/29 16:19:54 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ t_bint		*add_bint(t_bint const *const n1, t_bint const *const n2)
 		i++;
 	}
 	if (!*res->num || !(++res->len))
-		ft_memmove(res->num, res->num + 1, res->len);
+		ft_memmove(res->num, res->num + 1, sizeof(t_digit) * res->len);
 	return (res);
 }
