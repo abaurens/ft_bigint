@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 06:22:45 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/29 13:45:41 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/29 19:24:48 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef t_bflt		t_bfloat;
 
 t_bflt				*new_bflt(const char *value);
 t_bflt				*set_bflt(t_bflt *num, const char *value);
+t_bflt				*set_bflt_base(t_bflt *num, const char *value);
 t_bflt				*copy_bflt(t_bflt const *const num);
 void				unset_bflt(t_bflt *const num);
 void				del_bflt(t_bflt const *const num);

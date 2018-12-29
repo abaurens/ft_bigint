@@ -6,7 +6,7 @@
 #    By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/20 04:12:39 by abaurens          #+#    #+#              #
-#    Updated: 2018/12/29 13:44:56 by abaurens         ###   ########.fr        #
+#    Updated: 2018/12/29 19:18:30 by abaurens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC		:=	bint/instance.c			\
 			bfloat/utils.c			\
 			bfloat/add.c			\
 			bfloat/mul.c			\
-			bfloat/set.c
+			bfloat/set.c			\
+			bfloat/set2.c
 
 OBJ		:=	$(addprefix $(OBJD)/,$(SRC:.c=.o))
 SRC		:=	$(addprefix $(SRCD)/,$(SRC))

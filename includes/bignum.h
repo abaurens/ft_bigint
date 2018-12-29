@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 06:23:58 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/29 18:08:08 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/29 21:45:30 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef unsigned long	t_digit;
 **	in theory, this macro can be at most 4294967295 if the system is 64 bit
 **	and if t_digit is unsigned long
 */
-# define DIGIT_MAX 4294967297ull
+/*# define DIGIT_MAX 4294967295ull*/
+# define DIGIT_MAX 10ull
 
 char	*add_deci(const char *n1, const char *n2);
 char	*mul_deci(const char *n1, const char *n2);
