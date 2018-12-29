@@ -6,7 +6,7 @@
 #    By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/20 04:12:39 by abaurens          #+#    #+#              #
-#    Updated: 2018/12/22 02:32:26 by abaurens         ###   ########.fr        #
+#    Updated: 2018/12/29 13:44:56 by abaurens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC		:=	bint/instance.c			\
 			bfloat/utils.c			\
 			bfloat/add.c			\
 			bfloat/mul.c			\
-			bfloat/new.c
+			bfloat/set.c
 
 OBJ		:=	$(addprefix $(OBJD)/,$(SRC:.c=.o))
 SRC		:=	$(addprefix $(SRCD)/,$(SRC))
@@ -53,18 +53,21 @@ test:	$(NAME) main.o
 all:	$(NAME)
 
 clean:
-	make -C libft/ clean
 	$(RM) main.o
 	$(RM) $(OBJD)
 
+cleanl:
+	make -C libft/ clean
+
 fclean:
-	make -C libft/ fclean
 	$(RM) main.o
 	$(RM) $(OBJD)
 	$(RM) $(NAME)
 	$(RM) test
 
-re:	fclean all
+fcleanl:
+	make -C libft/ fclean
+re:	fcleanl fclean all
 
 retest:	fclean test
 

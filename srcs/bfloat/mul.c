@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 19:54:31 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/21 01:41:19 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/21 14:53:13 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void			mul_digit(const t_bflt *r, t_bflt const *n1,
 	l1 = n1->len - 1;
 	while (i++ < l1)
 	{
-		num = (((r->len - 1) - i - dc) < r->entl) ? r->ent : r->dec;
-		l = ((r->len - 1) - i - dc) - ((num == r->dec) ? r->entl : 0);
+		num = (((r->entl + r->decl) - i - dc) < r->entl) ? r->ent : r->dec;
+		l = ((r->entl + r->decl) - i - dc) - ((num == r->dec) ? r->entl : 0);
 		prev = (num == r->dec && l == 0) ? &r->ent[r->entl - 1] : &num[l - 1];
 		if ((num[l] += (get_digit(n1, l1 - i) * d)) > 9)
 			*prev += num[l] / 10;
@@ -68,7 +68,6 @@ t_bflt				*mul_bflt(t_bflt const *n1, t_bflt const *n2)
 	res->neg = 0;
 	res->entl = n1->entl + n2->entl;
 	res->decl = n1->decl + n2->decl;
-	res->len = res->decl + res->entl + 1;
 	if (!(res->ent = (t_digit *)ft_memalloc(sizeof(t_digit) * (res->entl + 1))))
 		return (abort_bflt(res, 0));
 	if (!(res->dec = (t_digit *)ft_memalloc(sizeof(t_digit) * res->decl)))
@@ -78,6 +77,9 @@ t_bflt				*mul_bflt(t_bflt const *n1, t_bflt const *n2)
 		mul_digit(res, n1, get_digit(n2, l - i), i - 1);
 	if (!*res->ent)
 		ft_memmove(res->ent, res->ent + 1, res->entl--);
+	while ((res->decl > 0 || (res->dec = (t_digit *)ft_freturn(res->dec, 0x0)))
+			&& !res->dec[res->decl - 1])
+		--res->decl;
 	res->len = res->decl + res->entl + 1;
 	return (res);
 }

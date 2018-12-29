@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new.c                                              :+:      :+:    :+:   */
+/*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 06:29:23 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 18:07:44 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/21 14:41:58 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ static t_bflt	*insert_decimal(t_bflt *num, const char *value)
 
 	i = 0;
 	num->decl = 0;
+	num->dec = NULL;
+	num->len = num->entl + 1;
 	while (value && value[num->decl] >= '0' && value[num->decl] <= '9')
 		++num->decl;
 	while (value && num->decl > 0 && value[num->decl - 1] == '0')
 		--num->decl;
 	if (!num->decl)
-		num->decl = 1;
+		return (num);
 	if (!(num->dec = (t_digit *)malloc(sizeof(t_digit) * num->decl)))
 		return (abort_bflt(num, 1));
 	num->dec[0] = 0;
