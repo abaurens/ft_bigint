@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 02:25:58 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/22 07:12:12 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/29 14:17:39 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,25 @@
 static t_digit	modulus(const char *v)
 {
 	t_digit		d;
+	char		first;
 
 	d = 0;
+	first = 1;
 	while (*v)
 	{
-		while (*v && d < DIGIT_MAX)
+		d = (d * 10 + (*v++ - '0'));
+		while (first && *v && d < DIGIT_MAX)
 			d = (d * 10 + (*v++ - '0'));
 		d = d % DIGIT_MAX;
+		if (first)
+			first = 0;
 	}
 	return (d);
 }
 
 /*
 **	This function stores the division of the ascii formated number
-**	given as argument by DIGIT_MAX in the same argument argument (like /= op).
+**	given as argument by DIGIT_MAX in the same argument argument (like '/=' op).
 **	This means v has to be allocated and that it WILL be changed.
 **	This function also gives the modulus as return value.
 */
@@ -47,16 +52,21 @@ static t_digit	div_prs(char *v)
 	size_t		i;
 	t_digit		d;
 	char		*nb;
+	char		first;
 
 	i = 0;
 	d = 0;
 	nb = v;
+	first = 1;
 	while (v && *v)
 	{
-		while (*v && d < DIGIT_MAX)
+		d = (d * 10 + (*v++ - '0'));
+		while (first && *v && d < DIGIT_MAX)
 			d = (d * 10 + (*v++ - '0'));
 		nb[i++] = (d / DIGIT_MAX) + '0';
 		d %= DIGIT_MAX;
+		if (first)
+			first = 0;
 	}
 	if (v && !*v)
 		nb[i] = 0;
@@ -80,7 +90,10 @@ static t_bint	*div_parser(t_bint *num, const char *value)
 	while (wrk && *wrk && *wrk != '0')
 	{
 		num->num[--l] = modulus(wrk);
+		/*printf("%s %% %d = %d\n", wrk, DIGIT_MAX, num->num[l]);
+		printf("%s / %d = ", wrk, DIGIT_MAX);*/
 		div_prs(wrk);
+		/*printf("%s\n", wrk);*/
 	}
 	free(wrk);
 	return (num);
