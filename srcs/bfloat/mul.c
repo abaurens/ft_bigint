@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 19:54:31 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/21 14:53:13 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/30 20:14:20 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ static void			mul_digit(const t_bflt *r, t_bflt const *n1,
 		num = (((r->entl + r->decl) - i - dc) < r->entl) ? r->ent : r->dec;
 		l = ((r->entl + r->decl) - i - dc) - ((num == r->dec) ? r->entl : 0);
 		prev = (num == r->dec && l == 0) ? &r->ent[r->entl - 1] : &num[l - 1];
-		if ((num[l] += (get_digit(n1, l1 - i) * d)) > 9)
-			*prev += num[l] / 10;
-		num[l] %= 10;
+		if ((num[l] += (get_digit(n1, l1 - i) * d)) >= DIGIT_MAX)
+			*prev += num[l] / DIGIT_MAX;
+		num[l] %= DIGIT_MAX;
 	}
 }
 

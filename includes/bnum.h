@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   bnum.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/20 03:18:59 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/30 20:15:13 by abaurens         ###   ########.fr       */
+/*   Created: 2018/12/20 06:23:58 by abaurens          #+#    #+#             */
+/*   Updated: 2018/12/30 19:26:00 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "ft_bigint.h"
-#include "ft_bigfloat.h"
-#include "libft.h"
-#include "bnum.h"
+#ifndef BNUM_H
+# define BNUM_H
 
-int				main(void)
-{
-	t_bflt	*f1;
-	t_bflt	*f2;
-	t_bflt	*r;
+# include "ft_bigint.h"
+# include "ft_bigfloat.h"
 
-	f1 = new_bflt("2.42");
-	f2 = new_bflt("2.42");
-	print_bflt(f1);
-	print_bflt(f2);
-	r = mul_bflt(f1, f2);
-	print_bflt(r);
-	del_bflt(r);
-	del_bflt(f2);
-	del_bflt(f1);
-	return (0);
-}
+t_bint	*to_bint(t_bflt const *const num);
+t_bflt	*to_bflt(t_bint const *const num);
+t_bint	*in_bint(t_bint *dst, t_bflt const *const num);
+t_bflt	*in_bflt(t_bflt *dst, t_bint const *const num);
+
+#endif

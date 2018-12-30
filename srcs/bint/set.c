@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 02:25:58 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/29 18:09:04 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/30 18:50:03 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_digit		modulus(const char *v)
 **	This function also gives the modulus as return value.
 */
 
-static t_digit		div_prs(char *v)
+t_digit				div_prs(char *v)
 {
 	size_t			i;
 	unsigned long	d;
@@ -104,10 +104,12 @@ t_bint				*set_bint(t_bint *num, const char *value)
 	i = 0;
 	num->len = 0;
 	num->neg = 0;
-	while (value && (*value == '+' || *value == '-') && ++value)
+	if (!value)
+		value = "0";
+	while ((*value == '+' || *value == '-') && ++value)
 		if (*(value - 1) == '-')
 			num->neg = !num->neg;
-	while (value && *value == '0' && *(value + 1))
+	while (*value == '0' && *(value + 1))
 		value++;
 	if (!div_parser(num, value))
 		return (NULL);

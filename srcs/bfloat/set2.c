@@ -6,41 +6,34 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 19:18:11 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/29 21:47:44 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/30 20:14:00 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "ft_bigfloat.h"
+#include "ft_bigint.h"
+#include "digits.h"
 #include "libft.h"
+#include "bnum.h"
 
 #include <stdio.h>
-
-static void		swap_deci(const char **n1, const char **n2)
-{
-	const char	*lng;
-
-	if (ft_strlen(*n2) <= ft_strlen(*n1))
-		return ;
-	lng = *n2;
-	*n2 = *n1;
-	*n1 = lng;
-}
 
 static char		*dup_dot(const char *n)
 {
 	size_t		i;
 	size_t		d;
+	char		dot;
 	char		*res;
 
 	i = ft_strlen(n);
-	if ((d = ft_idxof('.', n)) != i)
+	d = ft_idxof('.', n);
+	if ((dot = (d != i)))
 		i--;
 	if (!(res = ft_strmcat(n, NULL, d)))
 		return (NULL);
-	if (!(res = (char *)ft_freturn(res, (long)ft_strmcat(res, n + d + 1, i))))
+	if (!(res = (char *)ft_freturn(res, (long)ft_strmcat(res, n + d + dot, i))))
 		return (NULL);
-	/*ft_putendl(res);*/
 	return (res);
 }
 
@@ -97,28 +90,41 @@ static char		*mul_deci_dot(const char *n1, const char *n2)
 	return (res);
 }
 
-t_bflt		*set_bflt_base(t_bflt *num, const char *value)
+static t_bflt	*in_bflt_dot(t_bflt *dst, t_bint *num, size_t dt)
 {
-	size_t	i;
-	size_t	dot;
-	char	*wrk;
-	char	*base;
+	dst->decl = num->len - dt;
+	dst->len = dst->entl + dst->decl + 1;
+	if (!(dst->dec = malloc(sizeof(t_digit) * dst->decl)))
+		return ((t_bflt *)ft_freturn(dst, 0x0));
+	ft_memcpy(dst->dec, num->num + dt, sizeof(t_digit) * dst->decl);
+	return (dst);
+}
+
+t_bflt			*set_bflt_base(t_bflt *num, const char *value)
+{
+	size_t		i;
+	size_t		dot;
+	t_bint		tmp;
+	char		*wrk;
+	char		*base;
 
 	dot = 0;
+	value = !value ? "0" : value;
 	if ((wrk = ft_strchr(value, '.')))
 		dot = ft_strlen(++wrk);
 	i = 0;
 	base = ft_ulltoa(DIGIT_MAX);
 	if (!base || !(wrk = ft_strdup(value)))
 		return (NULL);
-	while (wrk && i < dot)
-	{
-		printf("%s * %s = ", wrk, base);
+	while (wrk && i++ < dot)
 		wrk = (char *)ft_freturn(wrk, (long)mul_deci_dot(wrk, base));
-		printf("%s\n", wrk);
-		i++;
-	}
+	wrk = (char *)ft_freturn(wrk, (long)ft_strmcat(wrk, 0, ft_idxof('.', wrk)));
 	free(base);
+	set_bint(&tmp, wrk);
 	free(wrk);
+	tmp.len -= dot;
+	in_bflt(num, &tmp);
+	in_bflt_dot(num, &tmp, (tmp.len += dot) - dot);
+	unset_bint(&tmp);
 	return (num);
 }

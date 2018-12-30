@@ -6,7 +6,7 @@
 #    By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/20 04:12:39 by abaurens          #+#    #+#              #
-#    Updated: 2018/12/29 19:18:30 by abaurens         ###   ########.fr        #
+#    Updated: 2018/12/30 19:56:15 by abaurens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,10 @@ CC		=	gcc
 
 CFLAGS	+=	-g -I./includes -I./libft/includes -W -Wall -Wextra -ansi# -pedantic
 
-SRC		:=	bint/instance.c			\
+SRC		:=	cast.c					\
+			digit_converter.c		\
+			\
+			bint/instance.c			\
 			bint/string.c			\
 			bint/utils.c			\
 			bint/add.c				\
@@ -31,7 +34,6 @@ SRC		:=	bint/instance.c			\
 			bfloat/utils.c			\
 			bfloat/add.c			\
 			bfloat/mul.c			\
-			bfloat/set.c			\
 			bfloat/set2.c
 
 OBJ		:=	$(addprefix $(OBJD)/,$(SRC:.c=.o))

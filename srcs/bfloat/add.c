@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 17:17:12 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/20 19:53:27 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/30 20:07:30 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static t_bflt	*add_dec(t_bflt const *const n1, t_bflt const *const n2,
 		d1 = ((r->decl - 1) - i) < n1->decl ? n1->dec[(r->decl - 1) - i] : 0;
 		d2 = ((r->decl - 1) - i) < n2->decl ? n2->dec[(r->decl - 1) - i] : 0;
 		r->dec[r->decl - 1 - i] = cary + d1 + d2;
-		cary = r->dec[r->decl - 1 - i] / 10;
-		r->dec[r->decl - 1 - i] %= 10;
+		cary = r->dec[r->decl - 1 - i] / DIGIT_MAX;
+		r->dec[r->decl - 1 - i] %= DIGIT_MAX;
 		i++;
 	}
 	r->ent[r->entl] = cary;
@@ -59,9 +59,9 @@ static t_bflt	*add_ent(t_bflt const *const n1, t_bflt const *const n2,
 		c1 = (l1 < i ? 0 : n1->ent[l1 - i]);
 		c2 = (l2 < i ? 0 : n2->ent[l2 - i]);
 		r->ent[r->entl - i] += c1 + c2;
-		if (r->ent[r->entl - i] > 9)
-			r->ent[r->entl - (i + 1)] = r->ent[r->entl - i] / 10;
-		r->ent[r->entl - i] %= 10;
+		if (r->ent[r->entl - i] >= DIGIT_MAX)
+			r->ent[r->entl - (i + 1)] = r->ent[r->entl - i] / DIGIT_MAX;
+		r->ent[r->entl - i] %= DIGIT_MAX;
 		i++;
 	}
 	if (!*r->ent || !(++r->entl))

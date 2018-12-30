@@ -6,14 +6,15 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 03:19:28 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/22 04:53:42 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/30 18:27:38 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_BIGINT_H
 # define FT_BIGINT_H
 
-# include "bignum.h"
+# include <string.h>
+# include "digits.h"
 
 typedef struct		s_bint
 {
@@ -31,17 +32,18 @@ void				del_bint(t_bint const *const num);
 char				*bint_tostr(t_bint const *const num);
 void				print_bint(t_bint const *const num);
 
+void				*abort_bint(t_bint const *const to_abort);
 const t_bint		*bint_longer(t_bint const *const n1,
 									t_bint const *const n2);
 const t_bint		*bint_shorter(t_bint const *const n1,
 									t_bint const *const n2);
-void				*abort_bint(t_bint const *const to_abort);
+t_sdigit			bint_cmp(t_bint const *const n1, t_bint const *const n2);
 
 t_bint				*add_bint(t_bint const *const n1, t_bint const *const n2);
 t_bint				*mul_bint(t_bint const *n1, t_bint const *n2);
-
-t_bint				*sub_bint(t_bint *n1, t_bint *n2);
 t_bint				*div_bint(t_bint *n1, t_bint *n2);
 t_bint				*mod_bint(t_bint *n1, t_bint *n2);
+
+t_bint				*sub_bint(t_bint *n1, t_bint *n2);
 
 #endif

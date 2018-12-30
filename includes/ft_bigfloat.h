@@ -6,14 +6,15 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 06:22:45 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/29 19:24:48 by abaurens         ###   ########.fr       */
+/*   Updated: 2018/12/30 15:52:00 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_BIGFLOAT_H
 # define FT_BIGFLOAT_H
 
-# include "bignum.h"
+# include <string.h>
+# include "digits.h"
 
 typedef struct		s_bflt
 {
