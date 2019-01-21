@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:25:03 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/21 19:57:15 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/21 22:20:38 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static unsigned int	correct_error(unsigned int q, t_bint *n1, t_bint *n2)
 {
 	unsigned int	i;
 	unsigned long	borrow;
-	unsigned long	product;
 	unsigned long	difference;
 
 	i = 0;
