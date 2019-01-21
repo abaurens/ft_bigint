@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 00:16:18 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/20 15:52:21 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/21 16:55:43 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ long	bicmplng(const t_bint *lhs, unsigned long v)
 
 	if (!lhs && !v)
 		return (0);
-
 	if (lhs->len == 1 && v < MAX_BINT_VALS && lhs->blks[0] != v)
 		return (lhs->blks[0] > v ? 1 : -1);
 	bi_set(&rhs, v);

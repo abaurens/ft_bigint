@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mul.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/21 17:12:29 by abaurens          #+#    #+#             */
+/*   Updated: 2019/01/21 17:53:10 by abaurens         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "bint/bint.h"
 
 void		bimul(t_bint *res, t_bint *n1, t_bint *n2)
@@ -45,11 +57,11 @@ void		bimul2(t_bint *res, t_bint *n)
 	r.blks[0] = 0;
 	while (r.len < n->len)
 	{
-		t = c + (n->blks[r.len] * 2);
-		c = (t >> BIT_PER_BLOCK);
-		r.blks[r.len++] = (t & MAX_BINT_VALS);
+		t = n->blks[r.len];
+		r.blks[r.len++] = (t << 1) | c;
+		c = (t >> 31);
 	}
-	if ((r.blks[r.len] = (c & MAX_BINT_VALS)))
+	if (c && (r.blks[r.len] = (c & MAX_BINT_VALS)))
 		r.len++;
 	*res = r;
 }
@@ -65,11 +77,11 @@ void		bimul2to(t_bint *n)
 	r.blks[0] = 0;
 	while (r.len < n->len)
 	{
-		t = c + ((t_proc)n->blks[r.len] * 2);
-		c = (t >> BIT_PER_BLOCK);
-		r.blks[r.len++] = (t & MAX_BINT_VALS);
+		t = n->blks[r.len];
+		r.blks[r.len++] = (t << 1) | c;
+		c = (t >> 31);
 	}
-	if ((r.blks[r.len] = (c & MAX_BINT_VALS)))
+	if (c && (r.blks[r.len] = (c & MAX_BINT_VALS)))
 		r.len++;
 	*n = r;
 }
@@ -86,10 +98,10 @@ void		bimul10(t_bint *res, t_bint *n)
 	while (r.len < n->len)
 	{
 		t = c + ((t_proc)n->blks[r.len] * 10);
-		c = (t >> BIT_PER_BLOCK);
 		r.blks[r.len++] = (t & MAX_BINT_VALS);
+		c = (t >> BIT_PER_BLOCK);
 	}
-	if ((r.blks[r.len] = (c & MAX_BINT_VALS)))
+	if (c && (r.blks[r.len] = (c & MAX_BINT_VALS)))
 		r.len++;
 	*res = r;
 }
@@ -106,10 +118,10 @@ void		bimul10to(t_bint *n)
 	while (r.len < n->len)
 	{
 		t = c + ((t_proc)n->blks[r.len] * 10);
-		c = (t >> BIT_PER_BLOCK);
 		r.blks[r.len++] = (t & MAX_BINT_VALS);
+		c = (t >> BIT_PER_BLOCK);
 	}
-	if ((r.blks[r.len] = (c & MAX_BINT_VALS)))
+	if (c && (r.blks[r.len] = (c & MAX_BINT_VALS)))
 		r.len++;
 	*n = r;
 }
