@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 03:18:59 by abaurens          #+#    #+#             */
-/*   Updated: 2018/12/30 20:15:13 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/19 17:34:33 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,32 @@
 #include "libft.h"
 #include "bnum.h"
 
-int				main(void)
+int			main(void)
 {
-	t_bflt	*f1;
-	t_bflt	*f2;
-	t_bflt	*r;
+	int		i;
+	t_bint	*f1;
+	t_bint	*r;
+	t_bint	*t;
 
-	f1 = new_bflt("2.42");
-	f2 = new_bflt("2.42");
-	print_bflt(f1);
-	print_bflt(f2);
-	r = mul_bflt(f1, f2);
-	print_bflt(r);
-	del_bflt(r);
-	del_bflt(f2);
-	del_bflt(f1);
+	f1 = new_bint("2");
+	r = new_bint("1");
+
+	print_bint(r);
+	i = 20000;
+	while (i-- > 0)
+	{
+		t = r;
+		printf("2 * ");
+		fflush(stdout);
+		print_bint(r);
+		r = mul_bint(r, f1);
+		print_bint(r);
+		del_bint(t);
+	}
+
+	print_bint(r);
+
+	del_bint(r);
+	del_bint(f1);
 	return (0);
 }
