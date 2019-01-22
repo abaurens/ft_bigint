@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 02:38:17 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/21 20:32:24 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/22 19:47:56 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ typedef struct			s_bint
 	t_block				blks[MAX_BINT_BLKS];
 }						t_bint;
 
-t_bint	bi_init(t_bint *n);
-char	biiszero(t_bint *n);
+t_bint	bi_init(t_bint const *const n);
+char	biiszero(t_bint const *const n);
 void	bi_set(t_bint *n, unsigned long val);
 
 /*
@@ -69,7 +69,15 @@ long	bicmplng(const t_bint *lhs, unsigned long v);
 /*
 **	add.c
 */
+void	biincrement(t_bint *n1);
 void	biadd(t_bint *res, t_bint *n1, t_bint *n2);
+void	biaddint(t_bint *res, t_bint *n1, unsigned int v);
+
+/*
+**	sub.c
+*/
+void	bisub(t_bint *res, t_bint *n1, t_bint *n2);
+void	bisubint(t_bint *res, t_bint *n1, unsigned int v);
 
 /*
 **	mul.c
@@ -88,11 +96,13 @@ void	bimul10to(t_bint *n);
 **	pow.c
 */
 void	bipow10(t_bint *const res, unsigned int ex);
+void	bimul_pow10(t_bint *res, t_bint *n, unsigned int ex);
 
 /*
 **	div.c
 */
 t_block	bidiv_maxq9(t_bint *n1, t_bint *n2);
+unsigned int bi_divide_with_remainder_max_quotient9(t_bint *pDividend, const t_bint *div);
 
 /*
 **	shift.c

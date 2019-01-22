@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 00:07:17 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/21 19:58:11 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/22 20:03:23 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,27 @@ void		bi_print_bin_space(t_bint const *const n)
 
 void		bi_print_dec(t_bint const *const n)
 {
-	((void)n);
+	t_bint	t;
+	size_t	l;
+	size_t	i;
+	char	*tmp;
+
+	l = 0;
+	t = bi_init(n);
+	while (bicmplng(&t, 0) > 0)
+	{
+		bidiv10(&t, &t);
+		l++;
+	}
+	if (!l)
+		l++;
+	if (!(tmp = malloc(l + 1)))
+		return ;
+	tmp[(i = l)] = 0;
+	tmp[0] = '0';
+	t = bi_init(n);
+	while (bicmplng(&t, 0) > 0)
+		tmp[--i] = bidiv10(&t, &t) + '0';
+	printf("%s", tmp);
+	free(tmp);
 }

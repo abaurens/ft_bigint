@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 00:51:03 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/20 20:02:50 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/22 19:32:09 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,40 @@ void		biadd(t_bint *res, t_bint *n1, t_bint *n2)
 	if (r.len < MAX_BINT_BLKS && r.blks[r.len] != 0)
 		++r.len;
 	*res = r;
+}
+
+void		biaddint(t_bint *res, t_bint *n1, unsigned int v)
+{
+	size_t	i;
+	t_bint	r;
+	t_proc	sum;
+
+	i = 0;
+	while (i < n1->len || v)
+	{
+		sum = ((t_proc)n1->blks[i] + v);
+		v = (sum >> BIT_PER_BLOCK);
+		r.blks[i++] = (sum & MAX_BINT_VALS);
+	}
+	r.len = i;
+	*res = r;
+}
+
+void		biincrement(t_bint *n1)
+{
+	size_t	i;
+	t_bint	r;
+	t_proc	sum;
+	t_proc	car;
+
+	i = 0;
+	car = 1;
+	while (i < n1->len || car)
+	{
+		sum = ((t_proc)n1->blks[i] + car);
+		car = (sum >> BIT_PER_BLOCK);
+		r.blks[i++] = (sum & MAX_BINT_VALS);
+	}
+	r.len = i;
+	*n1 = r;
 }

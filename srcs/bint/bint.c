@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 02:48:52 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/21 18:09:47 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/22 19:48:02 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 **	If n is not null, the returned bigint is a copy of n.
 */
 
-t_bint		bi_init(t_bint *n)
+t_bint		bi_init(t_bint const *const n)
 {
 	t_bint	t;
 
@@ -45,7 +45,7 @@ void		bi_set(t_bint *n, unsigned long val)
 	}
 }
 
-char	biiszero(t_bint *n)
+char	biiszero(t_bint const *const n)
 {
 	return (!n || !n->len || (n->len == 1 && !n->blks[0]));
 }
