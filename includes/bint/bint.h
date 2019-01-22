@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 02:38:17 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/21 20:32:24 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/21 22:49:18 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ void	bimul10to(t_bint *n);
 /*
 **	pow.c
 */
+void	bimul_pow10(t_bint *res, t_bint *n, unsigned int ex);
 void	bipow10(t_bint *const res, unsigned int ex);
+void	bipow2(t_bint *res, unsigned int ex);
 
 /*
 **	div.c
@@ -98,7 +100,6 @@ t_block	bidiv_maxq9(t_bint *n1, t_bint *n2);
 **	shift.c
 */
 void	bi_shift_left(t_bint *res, unsigned int shift);
-void	bi_shift_left_2(t_bint *res, unsigned int shift);
 
 /*
 **	utils.c
