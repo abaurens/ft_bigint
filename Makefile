@@ -6,7 +6,7 @@
 #    By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/16 02:41:41 by abaurens          #+#    #+#              #
-#    Updated: 2019/01/22 18:51:42 by abaurens         ###   ########.fr        #
+#    Updated: 2019/01/22 21:00:26 by abaurens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ all:	$(NAME)
 
 clean:
 	rm -rf $(OBJ)
+	rm -rf ./objs
 
 fclean:	clean
 	rm -rf $(NAME)
