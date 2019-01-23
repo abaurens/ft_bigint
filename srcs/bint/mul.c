@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:12:29 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/21 17:53:10 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/23 19:46:26 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void		bimul(t_bint *res, t_bint *n1, t_bint *n2)
 		c = 0;
 		while (r.len < n1->len)
 		{
-			t = c + n2->blks[i] * n1->blks[r.len];
+			t = (t_proc)n2->blks[i] * (t_proc)n1->blks[r.len] + c;
+			t += r.blks[i + r.len];
 			c = (t >> BIT_PER_BLOCK);
-			r.blks[i + r.len] = t & MAX_BINT_VALS;
+			r.blks[i + r.len] = (t & MAX_BINT_VALS);
 			r.len++;
 		}
 		r.blks[i + r.len] = c & MAX_BINT_VALS;

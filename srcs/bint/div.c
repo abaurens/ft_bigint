@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:25:03 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/23 05:42:31 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/23 21:12:37 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,110 @@ void		bidiv(t_bint *res, t_bint *mod, t_bint *n1, t_bint *n2)
 {
 	t_bint	r;
 	t_bint	m;
+	int		i;
 
+	m = *n1;
 	bi_set(&r, 0);
-	m = bi_init(n1);
 	if (bicmp(n1, n2) < 0)
 	{
 		*res = r;
 		*mod = m;
 		return ;
 	}
-	while (bicmp(&m, n2) >= 0)
+	i = 0;
+	/*printf("n2 = "); bi_print_dec(n2); printf("\n");*/
+	while (i < 10 && bicmp(&m, n2) >= 0)
 	{
+		printf("  "); bi_print_dec(&m); printf("\n");/* the substraction seems wrong...*/
+		printf("- "); bi_print_dec(n2); printf("\n");
 		bisub(&m, &m, n2);
+		printf("= "); bi_print_dec(&m); printf("\n\n");
 		biincrement(&r);
+		i++;
 	}
+	if (i == 10)
+		exit(0);
+	printf("\n");
 	*mod = m;
 	*res = r;
+}
+/*
+unsigned int		bidiv_fast(t_bint *remainer, const t_bint *dividend, const t_bint *divisor)
+{
+	unsigned int	quotient;
+	t_bint  		divid;
+	t_bint			divis;
+	t_bint			prev;
+
+	quotient = 1;
+	divid = *dividend;
+	divis = *divisor;
+	if (bicmp(&divid, &divis) == 0)
+	{
+		bi_set(remainer, 0);
+		return (1);
+	}
+	else if (bicmp(&divid, &divis) < 0)
+	{
+		*remainer = divid;
+		return (0);
+	}
+	prev = divis;
+	while (bicmp(&divid, &divis) > 0)
+	{
+		prev = divis;
+		bi_shift_left(&divis, 1);
+		quotient <<= 1;
+	}
+	if (bicmp(&divid, &divis) < 0)
+	{
+		divis = prev;
+		quotient >>= 1;
+	}
+	bisub(&divid, &divid, &divis);
+	return (quotient + bidiv_fast(remainer, &divid, divisor));
+}
+*/
+unsigned int		bidiv_fast(t_bint *remainer, const t_bint *dividend, const t_bint *divisor)
+{
+	unsigned int	quotient;
+	unsigned int	q;
+	t_bint  		divid;
+	t_bint			divis;
+	t_bint			prev;
+
+	quotient = 0;
+	divid = *dividend;
+	while (1)
+	{
+		q = 1;
+		divis = *divisor;
+		if (bicmp(&divid, &divis) == 0)
+		{
+			bi_set(remainer, 0);
+			return (quotient + 1);
+		}
+		else if (bicmp(&divid, &divis) < 0)
+		{
+			*remainer = divid;
+			return (quotient);
+		}
+		prev = divis;
+		while (bicmp(&divid, &divis) > 0)
+		{
+			prev = divis;
+			bi_shift_left(&divis, 1);
+			q <<= 1;
+		}
+		if (bicmp(&divid, &divis) < 0)
+		{
+			divis = prev;
+			q >>= 1;
+		}
+		bisub(&divid, &divid, &divis);
+		quotient += q;
+	}
+	return (quotient);
 }
 
 unsigned int	bidiv_maxq9(t_bint *n1, t_bint *n2)
@@ -69,89 +157,4 @@ unsigned int	bidiv10(t_bint *res, t_bint *n1)
 		r.len = 1;
 	*res = r;
 	return (c);
-}
-
-unsigned int BigInt_DivideWithRemainder_MaxQuotient9(t_bint *pDividend, const t_bint *divisor)
-{
-    /* Check that the divisor has been correctly shifted into range and that it is not
-     smaller than the dividend in length. */
-    BIASSERT(!biiszero(divisor), "divisor is zero");
-	BIASSERT(divisor->blks[divisor->len - 1] >= 8, "divisor last block is 8 or under")
-	BIASSERT(divisor->blks[divisor->len - 1] < 0xFFFFFFFF, "divisor last block is over 0xFFFFFFFF");
-	BIASSERT(pDividend->len <= divisor->len, "dividend length is higher than divisor length");
-
-    /* If the dividend is smaller than the divisor, the quotient is zero and the divisor is already
-     the remainder. */
-    unsigned int length = divisor->len;
-    if (pDividend->len < divisor->len)
-        return 0;
-
-    const unsigned int * pFinalDivisorBlock  = divisor->blks + length - 1;
-    unsigned int *       pFinalDividendBlock = pDividend->blks + length - 1;
-
-    /* Compute an estimated quotient based on the high block value. This will either match the actual quotient or
-     undershoot by one. */
-    unsigned int  quotient = *pFinalDividendBlock / (*pFinalDivisorBlock + 1);
-    RJ_ASSERT(quotient <= 9);
-
-    /* Divide out the estimated quotient */
-    if (quotient != 0)
-    {
-        /* dividend = dividend - divisor*quotient */
-        const unsigned int *pDivisorCur = divisor->blks;
-        unsigned int *pDividendCur      = pDividend->blks;
-
-        unsigned long borrow = 0;
-        unsigned long carry = 0;
-        do
-        {
-            unsigned long product = (unsigned long)*pDivisorCur * (unsigned long)quotient + carry;
-            carry = product >> 32;
-
-            unsigned long difference = (unsigned long)*pDividendCur - (product & 0xFFFFFFFF) - borrow;
-            borrow = (difference >> 32) & 1;
-
-            *pDividendCur = difference & 0xFFFFFFFF;
-
-            ++pDivisorCur;
-            ++pDividendCur;
-        } while(pDivisorCur <= pFinalDivisorBlock);
-
-        /* remove all leading zero blocks from dividend */
-        while (length > 0 && pDividend->blks[length - 1] == 0)
-            --length;
-
-        pDividend->len = length;
-    }
-
-    /* If the dividend is still larger than the divisor, we overshot our estimate quotient. To correct,
-     we increment the quotient and subtract one more divisor from the dividend. */
-    if ( bicmp(pDividend, divisor) >= 0 )
-    {
-        ++quotient;
-
-        /* dividend = dividend - divisor */
-        const unsigned int *pDivisorCur = divisor->blks;
-        unsigned int *pDividendCur      = pDividend->blks;
-
-        unsigned long borrow = 0;
-        do
-        {
-            unsigned long difference = (unsigned long)*pDividendCur - (unsigned long)*pDivisorCur - borrow;
-            borrow = (difference >> 32) & 1;
-
-            *pDividendCur = difference & 0xFFFFFFFF;
-
-            ++pDivisorCur;
-            ++pDividendCur;
-        } while(pDivisorCur <= pFinalDivisorBlock);
-
-        /* remove all leading zero blocks from dividend */
-        while (length > 0 && pDividend->blks[length - 1] == 0)
-            --length;
-
-        pDividend->len = length;
-    }
-
-    return quotient;
 }

@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 02:38:17 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/23 05:37:43 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/23 20:24:43 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 	abort(); \
 }
 
-# define MAX_BINT_BLKS 100000ul
+# define MAX_BINT_BLKS 35ul
 
 /*
 **	Because of multiplication, the maximum value of a single block
@@ -109,7 +109,7 @@ void	bipow2(t_bint *res, unsigned int ex);
 */
 t_block			bidiv_maxq9(t_bint *n1, t_bint *n2);
 unsigned int	bidiv10(t_bint *res, t_bint *n1);
-unsigned int	bidiv102(t_bint *res, t_bint *n1);
+unsigned int	bidiv_fast(t_bint *remainer, const t_bint *dividend, const t_bint *divisor);
 unsigned int	BigInt_DivideWithRemainder_MaxQuotient9(t_bint *pDividend, const t_bint *divisor);
 
 /*
