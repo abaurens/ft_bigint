@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 00:07:17 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/22 20:03:23 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/23 05:42:19 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ void		bi_print_bin(t_bint const *const n)
 	int		j;
 
 	i = n->len;
+	if (i == 0)
+		printf("0");
 	while (i-- > 0)
 	{
 		b = n->blks[i];
 		j = (sizeof(b) * 8) - 1;
-		while (i == n->len - 1 && ((b >> j) & 1) == 0 && j >= 0)
+		while (i == n->len - 1 && ((b >> j) & 1) == 0 && ((j >= 0 && i > 0) || j > 0))
 			j--;
 		while (j >= 0)
 			printf("%c", (char)(((b >> j--) & 1) + '0'));
@@ -38,11 +40,13 @@ void		bi_print_bin_space(t_bint const *const n)
 	int		j;
 
 	i = n->len;
+	if (i == 0)
+		printf("0");
 	while (i-- > 0)
 	{
 		b = n->blks[i];
 		j = (sizeof(b) * 8) - 1;
-		while (i == n->len - 1 && ((b >> j) & 1) == 0 && j >= 0)
+		while (i == n->len - 1 && ((b >> j) & 1) == 0 && ((j >= 0 && i > 0) || j > 0))
 			j--;
 		while (j >= 0)
 			printf("%c", (char)(((b >> j--) & 1) + '0'));
@@ -69,7 +73,8 @@ void		bi_print_dec(t_bint const *const n)
 		l++;
 	if (!(tmp = malloc(l + 1)))
 		return ;
-	tmp[(i = l)] = 0;
+	i = l;
+	tmp[l] = 0;
 	tmp[0] = '0';
 	t = bi_init(n);
 	while (bicmplng(&t, 0) > 0)

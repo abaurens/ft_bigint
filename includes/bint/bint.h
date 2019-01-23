@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 02:38:17 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/22 21:00:47 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/23 05:37:43 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 
 # define BIASSERT(CND, MSG) if (!(CND)) { \
 	dprintf(2, "Assertion (%s) failed : %s\n", #CND, #MSG); \
+	abort(); \
+}
+
+# define RJ_ASSERT(CND) if (!(CND)) { \
 	abort(); \
 }
 
@@ -103,8 +107,10 @@ void	bipow2(t_bint *res, unsigned int ex);
 /*
 **	div.c
 */
-t_block	bidiv_maxq9(t_bint *n1, t_bint *n2);
-unsigned int bi_divide_with_remainder_max_quotient9(t_bint *pDividend, const t_bint *div);
+t_block			bidiv_maxq9(t_bint *n1, t_bint *n2);
+unsigned int	bidiv10(t_bint *res, t_bint *n1);
+unsigned int	bidiv102(t_bint *res, t_bint *n1);
+unsigned int	BigInt_DivideWithRemainder_MaxQuotient9(t_bint *pDividend, const t_bint *divisor);
 
 /*
 **	shift.c

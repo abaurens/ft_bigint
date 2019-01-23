@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 02:48:52 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/22 19:48:02 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/23 05:26:53 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ void		bi_set(t_bint *n, unsigned long val)
 	while (val != 0)
 	{
 		n->len++;
-		n->blks[i++] = val & 0xFFFFFFFF;
+		n->blks[i++] = val & MAX_BINT_VALS;
 		val >>= BIT_PER_BLOCK;
 	}
+	if (!n->len)
+		n->len++;
 }
 
 char	biiszero(t_bint const *const n)
