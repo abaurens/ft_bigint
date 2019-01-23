@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 02:38:17 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/23 20:24:43 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/23 23:24:13 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 	abort(); \
 }
 
-# define MAX_BINT_BLKS 35ul
+# define MAX_BINT_BLKS 100000ul
 
 /*
 **	Because of multiplication, the maximum value of a single block

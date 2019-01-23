@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:25:03 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/23 21:12:37 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/23 23:29:30 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,21 @@ void		bidiv(t_bint *res, t_bint *mod, t_bint *n1, t_bint *n2)
 	}
 	i = 0;
 	/*printf("n2 = "); bi_print_dec(n2); printf("\n");*/
-	while (i < 10 && bicmp(&m, n2) >= 0)
+	while (bicmp(&m, n2) >= 0)
 	{
-		printf("  "); bi_print_dec(&m); printf("\n");/* the substraction seems wrong...*/
-		printf("- "); bi_print_dec(n2); printf("\n");
+		/*printf("  "); bi_print_dec(&m); printf("\n");*/
+		/*printf("- "); bi_print_dec(n2); printf("\n");*/
 		bisub(&m, &m, n2);
-		printf("= "); bi_print_dec(&m); printf("\n\n");
+		/*printf("= "); bi_print_dec(&m); printf("\n\n");*/
 		biincrement(&r);
 		i++;
 	}
-	if (i == 10)
-		exit(0);
-	printf("\n");
+	/*if (i != 1)
+		exit(0);*/
 	*mod = m;
 	*res = r;
 }
-/*
+
 unsigned int		bidiv_fast(t_bint *remainer, const t_bint *dividend, const t_bint *divisor)
 {
 	unsigned int	quotient;
@@ -79,7 +78,8 @@ unsigned int		bidiv_fast(t_bint *remainer, const t_bint *dividend, const t_bint 
 	bisub(&divid, &divid, &divis);
 	return (quotient + bidiv_fast(remainer, &divid, divisor));
 }
-*/
+
+/*
 unsigned int		bidiv_fast(t_bint *remainer, const t_bint *dividend, const t_bint *divisor)
 {
 	unsigned int	quotient;
@@ -121,13 +121,14 @@ unsigned int		bidiv_fast(t_bint *remainer, const t_bint *dividend, const t_bint 
 	}
 	return (quotient);
 }
-
+*/
 unsigned int	bidiv_maxq9(t_bint *n1, t_bint *n2)
 {
 	t_bint		t;
 
 
 	bidiv(&t, n1, n1, n2);
+	/*printf("digit = %d\n", t.blks[0]);*/
 	BIASSERT(t.len = 1 && t.blks[0] <= 9, "digit is over the base limit");
 	return (t.blks[0]);
 }

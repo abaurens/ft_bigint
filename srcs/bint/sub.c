@@ -6,18 +6,25 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 18:40:44 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/22 20:57:16 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/23 23:28:17 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bint/bint.h"
 
+static void		pbin(unsigned long v)
+{
+	if (v > 1)
+		pbin(v >> 1);
+	printf("%c", (char)((v & 1) + '0'));
+}
+
 void		bisub(t_bint *res, t_bint *n1, t_bint *n2)
 {
-	t_bint	r;
-	long	c;
 	size_t	i;
-	t_proc	ca;
+	t_bint	r;
+	int		c;
+	t_proc	c2;
 	t_proc	dif;
 
 	bi_set(&r, 0);
@@ -27,23 +34,19 @@ void		bisub(t_bint *res, t_bint *n1, t_bint *n2)
 		*res = r;
 		return ;
 	}
-	i = 0;
-	ca = 0;
-	while (i < n1->len)
+	r.len = 0;
+	c = 0;
+	while (r.len < n1->len)
 	{
-		dif = n1->blks[i];
-		if (dif < ((i < n2->len ? n2->blks[i] : 0) + ca))
-		{
-			dif *= 10;
-			ca = 1;
-		}
-		else
-			ca = 0;
-		dif -= n2->blks[i];
-		r.blks[i] = dif;
-		i++;
+		dif = n1->blks[r.len];
+		c2 = (r.len < n2->len ? n2->blks[r.len] : 0) + c;
+		if ((c = (dif < c2)))
+			dif |= (1ul << BIT_PER_BLOCK);
+		r.blks[r.len] = (dif - c2);
+		r.len++;
 	}
-	r.len = i;
+	if (r.blks[r.len - 1] == 0)
+		r.len--;
 	*res = r;
 }
 
