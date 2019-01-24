@@ -12,48 +12,25 @@ void		pbin(unsigned long v)
 
 int			main(void)
 {
-	unsigned long i;
+	long 	i;
 	t_bint	b;
-	t_bint	c;
 
-	i = ULONG_MAX - (2 * UINT_MAX);
-	bi_set(&b, i);
-	bi_set(&c, UINT_MAX);
-	printf("b = "); bi_print_bin(&b);
-	printf("\n");
-	printf("c = "); bi_print_bin(&c);
-	printf("\n");
+	i = 4096;
+	bi_set(&b, 1);
 
-	printf("b = "); bi_print_dec(&b);
-	printf("\n");
-	printf("c = "); bi_print_dec(&c);
-	printf("\n\n");
+	while (i-- > 0)
+	{
+		bimul10(&b, &b);
+	}
+	/*bi_print_dec(&b); printf("\n");*/
+	/*bi_print_bin_space(&b); printf("\n");*/
+	printf("{%lu, {", b.len);
+	i = 0;
+	while (i++ < b.len)
+		printf("%s%#x", i > 1 ? ", " : "", b.blks[i - 1]);
+	printf("}}\n");
 
-	i -= UINT_MAX;
-	bisub(&b, &b, &c);
-
-	printf("i = "); pbin(i); printf("\n");
-	printf("b = "); bi_print_bin(&b);
-	printf("\n\n");
+	bipow10(&b, 8191);
+	bi_print_dec(&b); printf("\n");
 	return (0);
 }
-/*
-
-123
-  4
-
-
-
-11111111111111111111111111111110 00000000000000000000000000000001
-                                 11111111111111111111111111111111
-
-11111111111111111111111111111110
-								 00000000000000000000000000000001
-                                 11111111111111111111111111111111
-
-
-100000000000000000000000000000000
- 11111111111111111111111111111111
-
-
-*/

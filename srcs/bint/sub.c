@@ -6,24 +6,16 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 18:40:44 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/23 23:28:17 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/24 17:44:07 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bint/bint.h"
 
-static void		pbin(unsigned long v)
-{
-	if (v > 1)
-		pbin(v >> 1);
-	printf("%c", (char)((v & 1) + '0'));
-}
-
 void		bisub(t_bint *res, t_bint *n1, t_bint *n2)
 {
-	size_t	i;
-	t_bint	r;
 	int		c;
+	t_bint	r;
 	t_proc	c2;
 	t_proc	dif;
 
