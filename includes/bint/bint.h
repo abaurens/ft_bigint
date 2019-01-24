@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 02:38:17 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/24 20:47:07 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/24 20:56:57 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ void	bipow2(t_bint *res, unsigned int ex);
 */
 t_block			bidiv_maxq9(t_bint *n1, t_bint *n2);
 unsigned int	bidiv10(t_bint *res, t_bint *n1);
-unsigned int	ft_div_bint(t_bint *remainer, const t_bint *dividend, const t_bint *divisor);
 
 /*
 **	shift.c
