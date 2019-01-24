@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:25:03 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/23 23:29:30 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/24 13:16:38 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void		bidiv(t_bint *res, t_bint *mod, t_bint *n1, t_bint *n2)
 {
 	t_bint	r;
 	t_bint	m;
-	int		i;
 
 	m = *n1;
 	bi_set(&r, 0);
@@ -26,111 +25,31 @@ void		bidiv(t_bint *res, t_bint *mod, t_bint *n1, t_bint *n2)
 		*mod = m;
 		return ;
 	}
-	i = 0;
-	/*printf("n2 = "); bi_print_dec(n2); printf("\n");*/
 	while (bicmp(&m, n2) >= 0)
 	{
-		/*printf("  "); bi_print_dec(&m); printf("\n");*/
-		/*printf("- "); bi_print_dec(n2); printf("\n");*/
 		bisub(&m, &m, n2);
-		/*printf("= "); bi_print_dec(&m); printf("\n\n");*/
 		biincrement(&r);
-		i++;
 	}
-	/*if (i != 1)
-		exit(0);*/
 	*mod = m;
 	*res = r;
 }
 
-unsigned int		bidiv_fast(t_bint *remainer, const t_bint *dividend, const t_bint *divisor)
-{
-	unsigned int	quotient;
-	t_bint  		divid;
-	t_bint			divis;
-	t_bint			prev;
-
-	quotient = 1;
-	divid = *dividend;
-	divis = *divisor;
-	if (bicmp(&divid, &divis) == 0)
-	{
-		bi_set(remainer, 0);
-		return (1);
-	}
-	else if (bicmp(&divid, &divis) < 0)
-	{
-		*remainer = divid;
-		return (0);
-	}
-	prev = divis;
-	while (bicmp(&divid, &divis) > 0)
-	{
-		prev = divis;
-		bi_shift_left(&divis, 1);
-		quotient <<= 1;
-	}
-	if (bicmp(&divid, &divis) < 0)
-	{
-		divis = prev;
-		quotient >>= 1;
-	}
-	bisub(&divid, &divid, &divis);
-	return (quotient + bidiv_fast(remainer, &divid, divisor));
-}
-
-/*
-unsigned int		bidiv_fast(t_bint *remainer, const t_bint *dividend, const t_bint *divisor)
-{
-	unsigned int	quotient;
-	unsigned int	q;
-	t_bint  		divid;
-	t_bint			divis;
-	t_bint			prev;
-
-	quotient = 0;
-	divid = *dividend;
-	while (1)
-	{
-		q = 1;
-		divis = *divisor;
-		if (bicmp(&divid, &divis) == 0)
-		{
-			bi_set(remainer, 0);
-			return (quotient + 1);
-		}
-		else if (bicmp(&divid, &divis) < 0)
-		{
-			*remainer = divid;
-			return (quotient);
-		}
-		prev = divis;
-		while (bicmp(&divid, &divis) > 0)
-		{
-			prev = divis;
-			bi_shift_left(&divis, 1);
-			q <<= 1;
-		}
-		if (bicmp(&divid, &divis) < 0)
-		{
-			divis = prev;
-			q >>= 1;
-		}
-		bisub(&divid, &divid, &divis);
-		quotient += q;
-	}
-	return (quotient);
-}
-*/
 unsigned int	bidiv_maxq9(t_bint *n1, t_bint *n2)
 {
-	t_bint		t;
+	unsigned int	r;
+	t_bint			m;
 
-
-	bidiv(&t, n1, n1, n2);
-	/*printf("digit = %d\n", t.blks[0]);*/
-	BIASSERT(t.len = 1 && t.blks[0] <= 9, "digit is over the base limit");
-	return (t.blks[0]);
+	r = 0;
+	m = *n1;
+	if (bicmp(n1, n2) < 0)
+	{
+		*n1 = m;
+		return (0);
+	}
+	while (bicmp(&m, n2) >= 0 && ++r)
+		bisub(&m, &m, n2);
+	*n1 = m;
+	return (r);
 }
 
 unsigned int	bidiv10(t_bint *res, t_bint *n1)
