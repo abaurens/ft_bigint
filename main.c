@@ -13,24 +13,28 @@ void		pbin(unsigned long v)
 int			main(void)
 {
 	long 	i;
+	t_bint	a;
 	t_bint	b;
+	t_bint	c;
 
 	i = 4096;
-	bi_set(&b, 1);
+	bi_set(&a, 1234);
+	bi_set(&b, 45);
+	bi_set(&c, 0);
 
-	while (i-- > 0)
-	{
-		bimul10(&b, &b);
-	}
-	/*bi_print_dec(&b); printf("\n");*/
-	/*bi_print_bin_space(&b); printf("\n");*/
-	printf("{%lu, {", b.len);
-	i = 0;
-	while (i++ < b.len)
-		printf("%s%#x", i > 1 ? ", " : "", b.blks[i - 1]);
-	printf("}}\n");
+	printf("A = "); bi_print_dec(&a); printf("\n");
+	printf("B = "); bi_print_dec(&b); printf("\n");
 
-	bipow10(&b, 8191);
-	bi_print_dec(&b); printf("\n");
+	bidiv_knuth(&c, &a, &b);
+
+	printf("C = "); bi_print_dec(&c); printf("\n");
 	return (0);
 }
+
+/*
+1234 / 45
+27
+
+1234 % 45
+19
+*/

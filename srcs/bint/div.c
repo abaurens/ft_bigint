@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:25:03 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/25 00:33:48 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/25 21:36:01 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,66 +204,67 @@ cette etape est reussie
 
 # define B (((unsigned long)MAX_BINT_VALS) + 1)
 
-void	bidiv_knuth(t_bint *res, const t_bint *n1, const t_bint *n2)
+static void		normalize(t_bint *u, t_bint *v, const t_bint *n1, const t_bint *n2)
 {
-	int	qh;
-	int	rh;
-	int	n;
-	int	m;
-	int	j;
-	t_bint	u;
-	t_bint	v
+	unsigned long	d;
+	size_t			n;
 
-	u = *n1;
-	v = *n2;
-	// etape de normalisation
-	n = v->len;
-	j = u->len - n;
-	while (j >= 0)
+	d = B;
+	n = n2->len;
+	d /= ((t_proc)n2->blks[n - 1] + 1);
+	bimulint(u, n1, d);
+	bimulint(v, n2, d);
+	BIASSERT(v->blks[v->len - 1] > (B / 2), "normalisation process failed");
+}
+
+void			bidiv_knuth(t_bint *res, const t_bint *n1, const t_bint *n2)
+{
+	t_bint		u;
+	t_bint		v;
+	size_t		j;
+	t_proc		qh;
+	t_proc		rh;
+
+	normalize(&u, &v, n1, n2);
+	j = n1->len - n2->len + 1;
+	while (j-- > 0)
 	{
-		//qh = {(u[j + n] * B + u[j + n - 1]) / v[n - 1]}
-		qh = ((u->blks[j + u] * B + u->blks[j + n - 1]) / v->blks[n - 1]);
-		//rh = (u[j + n] * B + u[j + n - 1]) % v[n - 1]
-		rh = ((u->blks[j + u] * B + u->blks[j + n - 1]) % v->blks[n - 1])
-
-		//Si qh = B ou qh * v[n - 2] > rh * B + u[j + n - 2]
-		if (qh == B || (qh * v->blks[n - 2] > (rh * B + u->blks[j + n - 2])))
+		/* attention si [j + v.len (- 1)] > u.len */
+		qh = (u.blks[j + v.len] * B + u.blks[j + v.len - 1]) / v.blks[v.len - 1];
+		rh = (u.blks[j + v.len] * B + U.blks[j + v.len - 1]) % v.blks[v.len - 1];
+		if (qh == B || (qh * v.blks[v.len - 2] > rh * B + u.blks[j + v.len - 2]))
 		{
-			//qh = qh - 1
 			qh--;
-			//rh = rh + v[n - 1]
-			rh = rh + v->blks[n - 1];
-			//si rh < B et qh * v[n - 2] > rh * B + u[j + n - 2]
-			if (rh < B && (qh * v->blks[n - 2] > rh * B + u->blks[j + n - 2]))
+			rh += v.blks[v.len - 1];
+			if (0/*COND*/)
 			{
-				//qh = qh -1
 				qh--;
-				//rh = rh + v[n - 1]
-				rh = rh + v->blks[n - 1];
+				rh += v.blks[v.len - 1];
 			}
-			//fin si
 		}
-		//fin si
-		//u = u - qh * v * B^j
-		u = u - qh * v * B^j;
-
-		//operaton sur bigint
-		bisub(&u, &u, &(qh * B^j * v)) // a modifier pour eviter le if suivant
-
-		//si u < 0
-		if (u < 0) //impossible avec mes bigint. je dois trouver un moyen d'eviter ce cas
-		{
-			//u = u + v
-			biadd(&u, &u, &v);
-			//qh = qh - 1
-			qh--;
-		}
-		//fin si
-		//q[j] = qh
-		q.blks[j--] = qh;
 	}
 }
 
+/*
+Pour j de m à 0 par pas de -1
+   qh = {(u[j+n]B + u[j+n-1])/v[n-1]}
+   rh = (u[j+n]B+u[j+n-1]) mod v[n-1]
+   Si qh = B ou qh*v[n-2] > rh*B + u[j+n-2]
+      qh = qh - 1
+      rh = rh + v[n-1]
+      si rh < B et qh*v[n-2] > rh*B + u[j+n-2]
+         qh = qh -1
+         rh = rh + v[n-1]
+      fin si
+   fin si
+   u = u - qh v B^j
+   si u < 0
+      u = u + v
+      qh = qh - 1
+   fin si
+   q[j] = qh
+fin pour
+*/
 unsigned int	bidiv10(t_bint *res, t_bint *n1)
 {
 	size_t		i;
