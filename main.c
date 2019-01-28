@@ -17,17 +17,9 @@ int			main(void)
 	t_bint	b;
 	t_bint	c;
 
-	i = 4096;
-	bi_set(&a, 1234);
-	bi_set(&b, 45);
-	bi_set(&c, 0);
-
-	printf("A = "); bi_print_dec(&a); printf("\n");
-	printf("B = "); bi_print_dec(&b); printf("\n");
-
-	bidiv_knuth(&c, &a, &b);
-
-	printf("C = "); bi_print_dec(&c); printf("\n");
+	i = 1;
+	bi_set(&a, 1919);
+	bi_set(&b, 1000);
 	return (0);
 }
 

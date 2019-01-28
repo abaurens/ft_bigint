@@ -6,7 +6,7 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 18:40:44 by abaurens          #+#    #+#             */
-/*   Updated: 2019/01/24 17:44:07 by abaurens         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:40:41 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void		bisub(t_bint *res, t_bint *n1, t_bint *n2)
 		*res = r;
 		return ;
 	}
-	r.len = 0;
 	c = 0;
+	r.len = 0;
 	while (r.len < n1->len)
 	{
 		dif = n1->blks[r.len];
